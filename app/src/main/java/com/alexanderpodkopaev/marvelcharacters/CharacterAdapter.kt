@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.alexanderpodkopaev.marvelcharacters.model.CharacterModel
+import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
 import com.bumptech.glide.Glide
 
-class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     private val charactersList: MutableList<CharacterModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         return CharacterViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_character,parent,false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
         )
     }
 
@@ -31,7 +31,7 @@ class CharacterAdapter: RecyclerView.Adapter<CharacterAdapter.CharacterViewHolde
         notifyDataSetChanged()
     }
 
-    inner class CharacterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvName = itemView.findViewById<TextView>(R.id.tvName)
         private val ivImage = itemView.findViewById<ImageView>(R.id.ivImage)
 

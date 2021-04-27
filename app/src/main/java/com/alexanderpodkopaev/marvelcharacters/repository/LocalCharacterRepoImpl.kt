@@ -1,6 +1,6 @@
 package com.alexanderpodkopaev.marvelcharacters.repository
 
-import com.alexanderpodkopaev.marvelcharacters.model.CharacterModel
+import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
 import javax.inject.Inject
 
 class LocalCharacterRepoImpl @Inject constructor() : CharacterRepository {

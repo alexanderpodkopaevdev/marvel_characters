@@ -6,8 +6,10 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import javax.inject.Singleton
 
-@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, RepositoryModule::class, ViewModelModule::class])
+@Singleton
+@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, RepositoryModule::class, ViewModelModule::class, NetworkModule::class])
 interface AppComponent : AndroidInjector<MarvelApp> {
 
     @Component.Factory

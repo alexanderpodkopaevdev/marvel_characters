@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexanderpodkopaev.marvelcharacters.model.CharacterModel
+import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
 import com.alexanderpodkopaev.marvelcharacters.repository.CharacterRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
