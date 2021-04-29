@@ -1,4 +1,4 @@
-package com.alexanderpodkopaev.marvelcharacters
+package com.alexanderpodkopaev.marvelcharacters.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
