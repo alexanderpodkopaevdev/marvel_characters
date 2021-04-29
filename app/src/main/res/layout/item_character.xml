@@ -2,28 +2,46 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="170dp"
-    android:layout_height="200dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/container_character"
+        android:layout_width="@dimen/character_width"
+        android:layout_height="@dimen/character_height"
+
+        android:background="@drawable/background_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
         android:fontFamily="sans-serif"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/container_character"
+        app:layout_constraintStart_toStartOf="@id/container_character"
+        app:layout_constraintTop_toTopOf="@id/container_character"
         tools:text="NAME" />
 
     <ImageView
         android:id="@+id/iv_image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/container_character"
+        app:layout_constraintEnd_toEndOf="@id/container_character"
+        app:layout_constraintStart_toStartOf="@id/container_character"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
         tools:src="@drawable/ic_launcher_foreground" />
 

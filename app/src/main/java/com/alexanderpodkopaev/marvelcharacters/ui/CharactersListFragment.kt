@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexanderpodkopaev.marvelcharacters.R
 import com.alexanderpodkopaev.marvelcharacters.di.ViewModelFactory
 import com.alexanderpodkopaev.marvelcharacters.repository.CharacterRepository
+import com.alexanderpodkopaev.marvelcharacters.utils.OffsetItemDecoration
+import com.alexanderpodkopaev.marvelcharacters.utils.UiUtils
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -69,15 +71,28 @@ class CharactersListFragment : DaggerFragment() {
     }
 
     private fun initRecycler(view: View) {
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
-        recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(CharactersLoadStateAdapter { adapter.retry() },CharactersLoadStateAdapter { adapter.retry() })
+        recyclerView.layoutManager = GridLayoutManager(
+            context,
+            UiUtils.calculateNoOfColumns(
+                requireContext(),
+                requireContext().resources.getDimension(R.dimen.character_width)
+                        + requireContext().resources.getDimension(R.dimen.doubleStandard)
+            )
+        )
+        recyclerView.addItemDecoration(
+            OffsetItemDecoration(
+                requireContext().resources.getDimension(
+                    R.dimen.standard
+                ).toInt()
+            )
+        )
+        recyclerView.adapter =
+            adapter.withLoadStateHeaderAndFooter(CharactersLoadStateAdapter { adapter.retry() },
+                CharactersLoadStateAdapter { adapter.retry() })
 
         adapter.addLoadStateListener { loadState ->
-            // Only show the list if refresh succeeds.
             recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
-            // Show loading spinner during initial load or refresh.
             progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-            // Show the retry state if initial load or refresh fails.
             btnRetry.isVisible = loadState.source.refresh is LoadState.Error
 
             val errorState = loadState.source.append as? LoadState.Error

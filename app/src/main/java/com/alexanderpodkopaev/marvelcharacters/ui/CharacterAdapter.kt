@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexanderpodkopaev.marvelcharacters.R
 import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class CharacterAdapter :
     PagingDataAdapter<CharacterModel, CharacterAdapter.CharacterViewHolder>(CHARACTER_COMPARATOR) {
@@ -34,7 +36,15 @@ class CharacterAdapter :
 
         fun bind(character: CharacterModel) {
             tvName.text = character.name
-            Glide.with(itemView.context).load(character.image).into(ivImage)
+            Glide.with(itemView.context).load(character.image).placeholder(R.drawable.a)
+                .transform(
+                    CenterCrop(), RoundedCorners(
+                        itemView.context.resources.getDimension(
+                            R.dimen.standard
+                        ).toInt()
+                    )
+                )
+                .into(ivImage)
         }
     }
 
