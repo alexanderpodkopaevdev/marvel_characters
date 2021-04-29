@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexanderpodkopaev.marvelcharacters.CharacterAdapter
@@ -13,6 +14,8 @@ import com.alexanderpodkopaev.marvelcharacters.R
 import com.alexanderpodkopaev.marvelcharacters.di.ViewModelFactory
 import com.alexanderpodkopaev.marvelcharacters.repository.CharacterRepository
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CharactersListFragment : DaggerFragment() {
@@ -26,6 +29,7 @@ class CharactersListFragment : DaggerFragment() {
 
     lateinit var adapter: CharacterAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,11 +38,17 @@ class CharactersListFragment : DaggerFragment() {
         val view = inflater.inflate(R.layout.fragment_characters_list, container, false)
         initRecycler(view)
         viewModel = ViewModelProvider(this, viewModelFactory)[CharactersListViewModel::class.java]
-        viewModel.charactersList.observe(viewLifecycleOwner) {
-            adapter.bindCharacters(it)
-        }
-        viewModel.fetchCharacters()
+
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.characters.collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 
     private fun initRecycler(view: View) {

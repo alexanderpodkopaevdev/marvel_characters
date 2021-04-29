@@ -1,28 +1,18 @@
 package com.alexanderpodkopaev.marvelcharacters
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
+import androidx.paging.cachedIn
+import androidx.paging.map
+import com.alexanderpodkopaev.marvelcharacters.data.model.toModel
 import com.alexanderpodkopaev.marvelcharacters.repository.CharacterRepository
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CharactersListViewModel @Inject constructor(val repository: CharacterRepository) :
     ViewModel() {
 
-    private val _charactersList = MutableLiveData<List<CharacterModel>>(emptyList())
-    val charactersList: LiveData<List<CharacterModel>> = _charactersList
+    val characters = repository.loadCharacters().map { it.map { model -> model.toModel() } }
+        .cachedIn(viewModelScope)
 
-    private val _isLoading = MutableLiveData(false)
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    fun fetchCharacters() {
-        viewModelScope.launch {
-            _isLoading.value = true
-            _charactersList.value = repository.loadCharacters()
-            _isLoading.value = false
-        }
-    }
 }

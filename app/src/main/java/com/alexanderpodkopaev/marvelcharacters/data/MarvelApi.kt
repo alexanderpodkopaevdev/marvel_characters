@@ -4,13 +4,14 @@ import com.alexanderpodkopaev.marvelcharacters.data.model.json.AllCharactersData
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CharacterApi {
+interface MarvelApi {
 
     @GET("characters")
     suspend fun getCharacters(
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int
     ): AllCharactersData
 }

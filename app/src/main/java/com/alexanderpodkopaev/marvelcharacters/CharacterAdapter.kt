@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexanderpodkopaev.marvelcharacters.data.model.CharacterModel
 import com.bumptech.glide.Glide
 
-class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
-
-    private val charactersList: MutableList<CharacterModel> = mutableListOf()
+class CharacterAdapter :
+    PagingDataAdapter<CharacterModel, CharacterAdapter.CharacterViewHolder>(CHARACTER_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         return CharacterViewHolder(
@@ -19,16 +20,11 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         )
     }
 
-    override fun getItemCount(): Int = charactersList.size
-
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(charactersList[position])
-    }
-
-    fun bindCharacters(characters: List<CharacterModel>) {
-        charactersList.clear()
-        charactersList.addAll(characters)
-        notifyDataSetChanged()
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,6 +34,22 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         fun bind(character: CharacterModel) {
             tvName.text = character.name
             Glide.with(itemView.context).load(character.image).into(ivImage)
+        }
+    }
+
+    companion object {
+        private val CHARACTER_COMPARATOR = object : DiffUtil.ItemCallback<CharacterModel>() {
+            override fun areItemsTheSame(
+                oldItem: CharacterModel,
+                newItem: CharacterModel
+            ): Boolean =
+                oldItem.name == newItem.name
+
+            override fun areContentsTheSame(
+                oldItem: CharacterModel,
+                newItem: CharacterModel
+            ): Boolean =
+                oldItem == newItem
         }
     }
 }

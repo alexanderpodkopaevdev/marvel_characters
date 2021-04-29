@@ -1,6 +1,6 @@
 package com.alexanderpodkopaev.marvelcharacters.di
 
-import com.alexanderpodkopaev.marvelcharacters.data.CharacterApi
+import com.alexanderpodkopaev.marvelcharacters.data.MarvelApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
         .build()
 
     @Singleton
@@ -39,6 +39,6 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideCharacterApi(retrofit: Retrofit): CharacterApi =
-        retrofit.create(CharacterApi::class.java)
+    fun provideCharacterApi(retrofit: Retrofit): MarvelApi =
+        retrofit.create(MarvelApi::class.java)
 }
