@@ -25,9 +25,6 @@ class MarvelPagingSource(private val marvelApi: MarvelApi) :
         return try {
             val hash = ("1" + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY).md5()
             val response = marvelApi.getCharacters(
-                "1",
-                BuildConfig.PUBLIC_KEY,
-                hash,
                 position,
                 params.loadSize
             )

@@ -1,6 +1,8 @@
 package com.alexanderpodkopaev.marvelcharacters.di
 
+import com.alexanderpodkopaev.marvelcharacters.BuildConfig
 import com.alexanderpodkopaev.marvelcharacters.data.MarvelApi
+import com.alexanderpodkopaev.marvelcharacters.utils.md5
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -20,6 +22,16 @@ class NetworkModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+        .addInterceptor { chain ->
+            val timestamp = System.currentTimeMillis().toString()
+            val url = chain.request().url.newBuilder()
+                .addQueryParameter("ts", timestamp)
+                .addQueryParameter("apikey", BuildConfig.PUBLIC_KEY)
+                .addQueryParameter("hash", (timestamp + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY).md5())
+                .build()
+            val request = chain.request().newBuilder().url(url).build()
+            chain.proceed(request)
+        }
         .build()
 
     @Singleton
