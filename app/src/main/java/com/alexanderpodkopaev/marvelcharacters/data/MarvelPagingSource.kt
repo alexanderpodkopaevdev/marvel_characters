@@ -23,7 +23,6 @@ class MarvelPagingSource(private val marvelApi: MarvelApi) :
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterJsonModel> {
         val position = params.key ?: MARVEL_STARTING_CHARACTER
         return try {
-            val hash = ("1" + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY).md5()
             val response = marvelApi.getCharacters(
                 position,
                 params.loadSize
