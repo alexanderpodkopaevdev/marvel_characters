@@ -98,7 +98,7 @@ class CharactersListFragment : DaggerFragment(), CharacterClickListener {
             UiUtils.calculateNoOfColumns(
                 requireContext(),
                 requireContext().resources.getDimension(R.dimen.character_width)
-                        + requireContext().resources.getDimension(R.dimen.doubleStandard)
+                        + requireContext().resources.getDimension(R.dimen.big)
             )
         )
         recyclerView.addItemDecoration(

@@ -3,5 +3,6 @@
     <dimen name="character_width">170dp</dimen>
     <dimen name="character_height">200dp</dimen>
     <dimen name="standard">8dp</dimen>
+    <dimen name="big">12dp</dimen>
     <dimen name="doubleStandard">16dp</dimen>
 </resources>
