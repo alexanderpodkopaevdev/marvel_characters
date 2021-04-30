@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +18,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 class CharacterAdapter :
     PagingDataAdapter<CharacterModel, CharacterAdapter.CharacterViewHolder>(CHARACTER_COMPARATOR) {
 
+    var clickListener: CharacterClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         return CharacterViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false),
+            clickListener
         )
     }
 
@@ -30,9 +34,11 @@ class CharacterAdapter :
         }
     }
 
-    inner class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CharacterViewHolder(itemView: View, clickListener: CharacterClickListener?) :
+        RecyclerView.ViewHolder(itemView) {
         private val tvName = itemView.findViewById<TextView>(R.id.tv_name)
         private val ivImage = itemView.findViewById<ImageView>(R.id.iv_image)
+        private val clCharacter = itemView.findViewById<ConstraintLayout>(R.id.cl_item_character)
 
         fun bind(character: CharacterModel) {
             tvName.text = character.name
@@ -45,6 +51,10 @@ class CharacterAdapter :
                     )
                 )
                 .into(ivImage)
+            clCharacter.transitionName = character.name
+            itemView.setOnClickListener {
+                clickListener?.onClick(clCharacter, character)
+            }
         }
     }
 
@@ -63,4 +73,8 @@ class CharacterAdapter :
                 oldItem == newItem
         }
     }
+}
+
+interface CharacterClickListener {
+    fun onClick(view: View, character: CharacterModel)
 }

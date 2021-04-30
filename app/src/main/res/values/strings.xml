@@ -2,4 +2,5 @@
     <string name="app_name">Marvel characters</string>
     <string name="marvel_character">Marvel Character</string>
     <string name="btn_text_retry">Retry</string>
+    <string name="bio_not_found">Bio not found</string>
 </resources>
