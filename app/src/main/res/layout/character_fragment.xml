@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_character"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/doubleStandard"
+        tools:context=".ui.CharacterFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/doubleStandard"
+            android:layout_height="@dimen/doubleStandard"
+            android:src="@drawable/ic_back_top_menu"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_name_detail" />
+
+        <TextView
+            android:id="@+id/tv_name_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/doubleStandard"
+            android:layout_marginEnd="@dimen/doubleStandard"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NAME" />
+
+        <ImageView
+            android:id="@+id/iv_image_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="@dimen/standard"
+            android:layout_marginEnd="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_detail"
+            tools:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/tv_bio_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_image_detail"
+            tools:text="@string/bio_not_found" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
